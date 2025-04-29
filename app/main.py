@@ -5,6 +5,8 @@ import streamlit as st
 from src.coleta import coletar_conteudo
 from src.extracao import extrair_eventos_com_spacy
 from src.visualizacao import criar_linha_do_tempo
+from src.nuvem import gerar_nuvem_de_palavras
+import matplotlib.pyplot as plt
 import plotly.express as px
 
 # Configuração do app
