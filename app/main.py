@@ -36,9 +36,16 @@ if st.button("Gerar Linha do Tempo"):
     if not df_eventos.empty:
         st.success(f"{len(df_eventos)} eventos extraídos com sucesso!")
     
-    # Mostrar o gráfico
-    #fig = criar_linha_do_tempo(df_eventos, retornar_figura=True)
-    #st.plotly_chart(fig, use_container_width=True)
+   # Mostrar nuvem de palavras
+    st.markdown("### ☁️ Nuvem de Palavras dos Eventos Históricos")
+
+    texto_eventos = " ".join(df_eventos["evento"])
+    nuvem = gerar_nuvem_de_palavras(texto_eventos)
+
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.imshow(nuvem, interpolation="bilinear")
+    ax.axis("off")
+    st.pyplot(fig)
 
     # Tabela interativa
     st.markdown("### 📋 Tabela de Eventos Históricos")
