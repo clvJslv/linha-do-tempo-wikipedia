@@ -45,4 +45,3 @@ def criar_linha_do_tempo(df_eventos, retornar_figura=False):
         return fig
     else:
         fig.show()
-
