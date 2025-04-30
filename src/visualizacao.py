@@ -1,6 +1,7 @@
-import plotly.express as px
+# src/visualizacao.py
 import pandas as pd
 from datetime import datetime
+import plotly.express as px
 
 def criar_linha_do_tempo(df_eventos, retornar_figura=False):
     def normalizar_data(data_str):
@@ -14,7 +15,6 @@ def criar_linha_do_tempo(df_eventos, retornar_figura=False):
 
     df_eventos["data_convertida"] = df_eventos["data"].apply(normalizar_data)
     df_eventos = df_eventos.dropna(subset=["data_convertida"])
-
     df_eventos = df_eventos.sort_values("data_convertida")
 
     fig = px.scatter(
@@ -24,7 +24,7 @@ def criar_linha_do_tempo(df_eventos, retornar_figura=False):
         hover_data={"data": True, "evento": True},
         text="data",
         labels={"data_convertida": "Data"},
-        title="📜 Linha do Tempo Histórica Interativa",
+        title="\U0001F4DC Linha do Tempo Histórica Interativa",
     )
 
     fig.update_traces(
@@ -45,3 +45,4 @@ def criar_linha_do_tempo(df_eventos, retornar_figura=False):
         return fig
     else:
         fig.show()
+

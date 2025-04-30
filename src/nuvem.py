@@ -1,6 +1,6 @@
+# src/nuvem.py
 import spacy
 from wordcloud import WordCloud
-import matplotlib.pyplot as plt
 
 # Carrega modelo do spaCy
 nlp = spacy.load("pt_core_news_lg")
