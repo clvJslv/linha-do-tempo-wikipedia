@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from src.coleta import coletar_conteudo
 from src.extracao import extrair_eventos_com_spacy
 from src.nuvem import gerar_nuvem_de_palavras
+from src.entidades import extrair_personagens_relevantes
 
 # Configuração do app
 st.set_page_config(page_title="Linha do Tempo Histórica", layout="centered")
@@ -39,6 +40,11 @@ if st.button("Gerar Nuvem de Palavras"):
             ax.imshow(nuvem, interpolation="bilinear")
             ax.axis("off")
             st.pyplot(fig)
+
+            # Tabela de entidades reconhecidas
+            st.markdown("### 🏛️ Personagens Históricos Mais Citados")
+            df_personagens = extrair_personagens_relevantes(conteudo)
+            st.dataframe(df_personagens, use_container_width=True)
 
             # Tabela interativa
             st.markdown("### 📋 Tabela de Eventos Históricos")

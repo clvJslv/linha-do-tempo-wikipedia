@@ -15,7 +15,7 @@ def gerar_nuvem_de_palavras(texto, stopwords_extras=None):
     stopwords_personalizadas = {
         "sendo", "apesar", "durante", "sido", "seguem", "paz", "ano", "vez",
         "data", "parte", "passou", "apesar", "produto", "milhões", "direito",
-        "início"
+        "início","dia"
     }
 
     stopwords = nlp.Defaults.stop_words.union(stopwords_personalizadas)
