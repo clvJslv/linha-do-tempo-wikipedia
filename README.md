@@ -50,24 +50,7 @@ Fornecer uma forma dinâmica e automatizada de visualizar a linha do tempo de ev
 4. Execute:
     streamlit run app/main.py
 
-
-
-📁 Estrutura do Projeto
-
-linha-do-tempo-wikipedia/
-│
-├── app/                  # Aplicação principal Streamlit
-│   └── main.py
-├── src/                  # Módulos de extração e análise
-│   ├── coleta.py
-│   ├── extracao.py
-│   ├── visualizacao.py
-│   ├── nuvem.py
-│   ├── entidades.py
-│   └── sentimento.py
-├── notebooks/            # Análises exploratórias
-├── requirements.txt      # Dependências do projeto
-└── README.md
-
-
+👨‍💻 Autor
+Clovis Silva
+🔗 github.com/clvJslv
 
