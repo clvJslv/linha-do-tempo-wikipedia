@@ -9,6 +9,7 @@ from src.coleta import coletar_conteudo
 from src.extracao import extrair_eventos_com_spacy
 from src.nuvem import gerar_nuvem_de_palavras
 from src.entidades import extrair_personagens_relevantes
+from src.sentimento import analisar_sentimentos
 
 # Configuração do app
 st.set_page_config(page_title="Linha do Tempo Histórica", layout="centered")
@@ -46,7 +47,10 @@ if st.button("Gerar Nuvem de Palavras"):
             df_personagens = extrair_personagens_relevantes(conteudo)
             st.dataframe(df_personagens, use_container_width=True)
 
-            # Tabela interativa
+            # Adiciona coluna de sentimento ao dataframe de eventos
+            df_eventos = analisar_sentimentos(df_eventos)
+
+            # Tabela interativa com sentimentos
             st.markdown("### 📋 Tabela de Eventos Históricos")
             st.dataframe(df_eventos.sort_values("data"), use_container_width=True)
     else:
