@@ -52,6 +52,7 @@ if st.button("Gerar Nuvem de Palavras"):
 
             # Tabela interativa com sentimentos
             st.markdown("### 📋 Tabela de Eventos Históricos")
-            st.dataframe(df_eventos.sort_values("data"), use_container_width=True)
+            st.dataframe(df_eventos[["ano", "evento", "sentimento"]].sort_values("ano"), use_container_width=True)
+
     else:
         st.error("Erro ao buscar conteúdo da Wikipedia.")
