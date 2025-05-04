@@ -10,6 +10,8 @@ from src.extracao import extrair_eventos_com_spacy
 from src.nuvem import gerar_nuvem_de_palavras
 from src.entidades import extrair_personagens_relevantes
 from src.sentimento import analisar_sentimentos
+from src.processamento import extrair_ano_historico
+
 
 # Configuração do app
 st.set_page_config(page_title="Linha do Tempo Histórica", layout="centered")
@@ -17,9 +19,9 @@ st.set_page_config(page_title="Linha do Tempo Histórica", layout="centered")
 st.title("\U0001F4DC Linha do Tempo Histórica com Wikipedia")
 
 # Entrada do usuário
-termo = st.text_input("\U0001F50D Digite um termo (ex: Segunda Guerra Mundial)", value="Segunda Guerra Mundial")
+termo = st.text_input("\U0001F50D Digite um termo (ex: Segunda Guerra Mundial)", value="Imperio romano")
 
-if st.button("Gerar Nuvem de Palavras"):
+if st.button("Analisar Artigo"):
     with st.spinner("Coletando conteúdo da Wikipedia..."):
         conteudo = coletar_conteudo(termo)
 
@@ -45,6 +47,9 @@ if st.button("Gerar Nuvem de Palavras"):
             # Tabela de entidades reconhecidas
             st.markdown("### 🏛️ Personagens Históricos Mais Citados")
             df_personagens = extrair_personagens_relevantes(conteudo)
+            df_eventos["ano"] = df_eventos["data"].apply(extrair_ano_historico)
+            df_eventos = df_eventos.dropna(subset=["ano"])
+            df_eventos = df_eventos.sort_values("ano")
             st.dataframe(df_personagens, use_container_width=True)
 
             # Adiciona coluna de sentimento ao dataframe de eventos

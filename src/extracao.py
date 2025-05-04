@@ -1,4 +1,4 @@
-#extracao.py
+# src/extracao.py
 import spacy
 import pandas as pd
 import re
@@ -13,14 +13,22 @@ def extrair_eventos_com_spacy(texto):
         DataFrame com colunas ['data', 'evento']
     """
     doc = nlp(texto)
-    padrao_data = r'\b(\d{1,2}\s+de\s+\w+\s+de\s+\d{4}|\bem\s+\d{4})'
+
+    padrao_data = r"""
+        (\d{1,2}\s+de\s+\w+\s+de\s+\d{4})|            # 10 de maio de 1940
+        (em\s+\d{4})|                                     # em 1945
+        (\d{1,4}\s*a\.c\.)|                               # 27 a.C.
+        (\d{1,4}\s*d\.c\.)|                               # 212 d.C.
+        (século\s+[ivxlcdm]+\s*(?:a\.c\.|d\.c\.))         # século V a.C.
+    """
 
     eventos = []
 
     for sent in doc.sents:
         frase = sent.text.strip()
-        datas = re.findall(padrao_data, frase, flags=re.IGNORECASE)
-        for data in datas:
+        datas = re.findall(padrao_data, frase, flags=re.IGNORECASE | re.VERBOSE)
+        datas_limpos = [d for grupo in datas for d in grupo if d]
+        for data in datas_limpos:
             eventos.append({'data': data.strip(), 'evento': frase})
 
     return pd.DataFrame(eventos)
