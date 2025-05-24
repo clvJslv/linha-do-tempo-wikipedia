@@ -5,6 +5,14 @@ import re
 
 nlp = spacy.load("pt_core_news_lg")
 
+def limpar_texto(texto):
+    """
+    Remove títulos e cabeçalhos da Wikipedia no formato '== Título ==' e linhas em branco.
+    """
+    linhas = texto.splitlines()
+    texto_limpo = [linha for linha in linhas if not re.match(r"^==+.*==+$", linha.strip()) and linha.strip()]
+    return " ".join(texto_limpo)
+
 def extrair_eventos_com_spacy(texto):
     """
     Usa spaCy para segmentar sentenças e regex para encontrar datas em cada uma.
@@ -12,6 +20,7 @@ def extrair_eventos_com_spacy(texto):
     Retorna:
         DataFrame com colunas ['data', 'evento']
     """
+    texto = limpar_texto(texto)
     doc = nlp(texto)
 
     padrao_data = r"""
